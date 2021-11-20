@@ -1,0 +1,59 @@
+# file names vocab
+vocab: 'aAàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬbBcCdDđĐeEèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆfFgGhHiIìÌỉỈĩĨíÍịỊjJkKlLmMnNoOòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢpPqQrRsStTuUùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶỹỸýÝỵỴzZ0123456789!"#$%&''()*+,-./:;<=>?@[\]^_`{|}~ '
+
+# cpu, cuda, cuda:0
+device: cuda
+
+seq_modeling: transformer
+transformer:  
+    d_model: 256
+    nhead: 8
+    num_encoder_layers: 6
+    num_decoder_layers: 6
+    dim_feedforward: 2048
+    max_seq_length: 1024
+    pos_dropout: 0.1
+    trans_dropout: 0.1
+
+optimizer:
+    max_lr: 0.0003 
+    pct_start: 0.1
+
+trainer:
+    batch_size: 16
+    print_every: 10
+    valid_every: 90
+    iters: 10000
+    # where to save our model for prediction
+    export: /home/ancv/Work/ocr_pdf/vietocr/weights/ft_transformerocr.pth
+    checkpoint: /home/ancv/Work/transformerocr.pth
+    log: ./train.log
+    # null to disable compuate accuracy, or change to number of sample to enable validiation while training
+    metrics: null
+
+dataset:    
+    # name of your dataset
+    name: data
+    # path to annotation and image
+    data_root: /home/ancv/Work/webannotation/static/
+    train_annotation: train.txt
+    valid_annotation: valid.txt
+    # resize image to 32 height, larger height will increase accuracy
+    image_height: 32
+    image_min_width: 64
+    image_max_width: 512
+    batch_size: 64
+    
+dataloader:
+    num_workers: 3
+    pin_memory: True
+
+aug:
+    image_aug: true
+    masked_language_model: true
+
+predictor:
+    # disable or enable beamsearch while prediction, use beamsearch will be slower
+    beamsearch: False
+
+quiet: False 

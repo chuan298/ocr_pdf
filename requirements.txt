@@ -1,0 +1,8 @@
+opencv-python==3.4.2.17
+paddlepaddle==2.0.0 -i https://mirror.baidu.com/pypi/simple
+imgaug==0.4.0
+pyclipper==1.2.1
+numpy==1.18.0
+torch==1.6.0
+torchvision==0.7.0
+vietocr==0.3.5
